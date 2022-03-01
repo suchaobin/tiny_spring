@@ -19,8 +19,9 @@ public interface BeanFactory {
     /**
      * 将bean注册到bean工厂中
      *
-     * @param name           beanName
+     * @param name           bean名
      * @param beanDefinition bean定义对象
+     * @throws Exception 异常
      */
-    void registerBeanDefinition(String name, BeanDefinition beanDefinition);
+    void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws Exception;
 }

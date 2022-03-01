@@ -21,6 +21,11 @@ public class BeanDefinition {
      */
     private String beanClassName;
 
+    /**
+     * 属性注入
+     */
+    private PropertyValues propertyValues;
+
     public BeanDefinition() {
 
     }
@@ -55,5 +60,13 @@ public class BeanDefinition {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public PropertyValues getPropertyValues() {
+        return propertyValues;
+    }
+
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
     }
 }

@@ -2,6 +2,8 @@ package org.su;
 
 import org.junit.Test;
 import org.su.tinyioc.BeanDefinition;
+import org.su.tinyioc.PropertyValue;
+import org.su.tinyioc.PropertyValues;
 import org.su.tinyioc.factory.AutowireCapableBeanFactory;
 import org.su.tinyioc.factory.BeanFactory;
 
@@ -13,14 +15,19 @@ import org.su.tinyioc.factory.BeanFactory;
 public class BeanFactoryTest {
 
     @Test
-    public void test() {
+    public void test() throws Exception {
         // 1.初始化bean工厂
         BeanFactory beanFactory = new AutowireCapableBeanFactory();
-        // 2.注入bean
+        // 2.bean定义
         BeanDefinition beanDefinition = new BeanDefinition();
         beanDefinition.setBeanClassName("org.su.HelloWorldService");
+        // 3.设置属性
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("text", "hello world"));
+        beanDefinition.setPropertyValues(propertyValues);
+        // 4.注册到bean工厂中，并生成对应bean
         beanFactory.registerBeanDefinition("hey", beanDefinition);
-        // 3.获取bean并调用方法
+        // 5.获取bean并调用方法测试
         HelloWorldService bean = (HelloWorldService) beanFactory.getBean("hey");
         bean.helloWorld();
     }

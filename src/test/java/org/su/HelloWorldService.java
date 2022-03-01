@@ -7,7 +7,13 @@ package org.su;
  **/
 public class HelloWorldService {
 
+    private String text;
+
     public void helloWorld() {
-        System.err.println("hello world");
+        System.out.println(text);
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

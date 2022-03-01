@@ -24,7 +24,7 @@ public class BeanDefinition {
     /**
      * 属性注入
      */
-    private PropertyValues propertyValues;
+    private PropertyValues propertyValues = new PropertyValues();
 
     public BeanDefinition() {
 
@@ -68,5 +68,15 @@ public class BeanDefinition {
 
     public void setPropertyValues(PropertyValues propertyValues) {
         this.propertyValues = propertyValues;
+    }
+
+    @Override
+    public String toString() {
+        return "BeanDefinition{" +
+                "bean=" + bean +
+                ", beanClass=" + beanClass +
+                ", beanClassName='" + beanClassName + '\'' +
+                ", propertyValues=" + propertyValues +
+                '}';
     }
 }

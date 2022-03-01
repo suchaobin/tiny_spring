@@ -29,4 +29,11 @@ public class PropertyValues {
     public List<PropertyValue> getPropertyValues() {
         return propertyValues;
     }
+
+    @Override
+    public String toString() {
+        return "PropertyValues{" +
+                "propertyValues=" + propertyValues +
+                '}';
+    }
 }

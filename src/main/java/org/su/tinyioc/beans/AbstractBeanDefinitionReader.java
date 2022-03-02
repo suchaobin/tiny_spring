@@ -1,6 +1,6 @@
-package org.su.tinyioc;
+package org.su.tinyioc.beans;
 
-import org.su.tinyioc.io.ResourceLoader;
+import org.su.tinyioc.beans.io.ResourceLoader;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,8 +1,8 @@
-package org.su.tinyioc.factory;
+package org.su.tinyioc.beans.factory;
 
-import org.su.tinyioc.BeanDefinition;
 import org.su.tinyioc.BeanReference;
-import org.su.tinyioc.PropertyValue;
+import org.su.tinyioc.beans.BeanDefinition;
+import org.su.tinyioc.beans.PropertyValue;
 
 import java.lang.reflect.Field;
 

@@ -1,4 +1,4 @@
-package org.su.tinyioc;
+package org.su.tinyioc.beans;
 
 import java.util.ArrayList;
 import java.util.List;

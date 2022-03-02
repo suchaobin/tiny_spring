@@ -1,4 +1,4 @@
-package org.su.tinyioc.io;
+package org.su.tinyioc.beans.io;
 
 import java.net.URL;
 

@@ -1,6 +1,6 @@
-package org.su.tinyioc.factory;
+package org.su.tinyioc.beans.factory;
 
-import org.su.tinyioc.BeanDefinition;
+import org.su.tinyioc.beans.BeanDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,6 @@ public abstract class AbstractBeanFactory implements BeanFactory {
      * @param beanDefinition bean定义对象
      * @throws Exception 异常
      */
-    @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws Exception {
         beanDefinitionMap.put(name, beanDefinition);
         // 这边是做测试，所以全部都放到非懒加载的集合中，在Test类中做区别测试

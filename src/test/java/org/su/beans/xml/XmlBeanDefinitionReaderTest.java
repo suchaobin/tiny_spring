@@ -1,9 +1,9 @@
-package org.su.xml;
+package org.su.beans.xml;
 
 import org.junit.Test;
-import org.su.tinyioc.BeanDefinition;
-import org.su.tinyioc.io.ResourceLoader;
-import org.su.tinyioc.xml.XmlBeanDefinitionReader;
+import org.su.tinyioc.beans.BeanDefinition;
+import org.su.tinyioc.beans.io.ResourceLoader;
+import org.su.tinyioc.beans.xml.XmlBeanDefinitionReader;
 
 import java.util.Map;
 

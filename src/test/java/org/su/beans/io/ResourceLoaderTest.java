@@ -1,8 +1,8 @@
-package org.su.io;
+package org.su.beans.io;
 
 import org.junit.Test;
-import org.su.tinyioc.io.Resource;
-import org.su.tinyioc.io.ResourceLoader;
+import org.su.tinyioc.beans.io.Resource;
+import org.su.tinyioc.beans.io.ResourceLoader;
 
 import java.io.IOException;
 import java.io.InputStream;

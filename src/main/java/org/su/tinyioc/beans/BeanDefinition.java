@@ -1,4 +1,4 @@
-package org.su.tinyioc;
+package org.su.tinyioc.beans;
 
 /**
  * @author suchaobin

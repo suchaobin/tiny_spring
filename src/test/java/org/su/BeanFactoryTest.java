@@ -1,12 +1,11 @@
 package org.su;
 
 import org.junit.Test;
-import org.su.tinyioc.BeanDefinition;
-import org.su.tinyioc.factory.AbstractBeanFactory;
-import org.su.tinyioc.factory.AutowireCapableBeanFactory;
-import org.su.tinyioc.factory.BeanFactory;
-import org.su.tinyioc.io.ResourceLoader;
-import org.su.tinyioc.xml.XmlBeanDefinitionReader;
+import org.su.tinyioc.beans.BeanDefinition;
+import org.su.tinyioc.beans.factory.AbstractBeanFactory;
+import org.su.tinyioc.beans.factory.AutowireCapableBeanFactory;
+import org.su.tinyioc.beans.io.ResourceLoader;
+import org.su.tinyioc.beans.xml.XmlBeanDefinitionReader;
 
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public class BeanFactoryTest {
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(new ResourceLoader());
         reader.loadBeanDefinitions("tinyioc.xml");
         // 2. 初始化bean工厂，并注册bean
-        BeanFactory beanFactory = new AutowireCapableBeanFactory();
+        AbstractBeanFactory beanFactory = new AutowireCapableBeanFactory();
         for (Map.Entry<String, BeanDefinition> entry : reader.getRegistry().entrySet()) {
             beanFactory.registerBeanDefinition(entry.getKey(), entry.getValue());
         }

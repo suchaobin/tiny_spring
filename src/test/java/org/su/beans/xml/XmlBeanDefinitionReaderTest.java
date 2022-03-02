@@ -17,8 +17,11 @@ public class XmlBeanDefinitionReaderTest {
     @Test
     public void test() throws Exception {
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(new ResourceLoader());
-        reader.loadBeanDefinitions("tinyioc.xml");
+        String location = "tinyioc.xml";
+        reader.loadBeanDefinitions(location);
         Map<String, BeanDefinition> registry = reader.getRegistry();
-        System.err.println(registry);
+        if (registry == null || registry.size() == 0) {
+            throw new RuntimeException("can not load BeanDefinitions from [ " + location + "] ");
+        }
     }
 }

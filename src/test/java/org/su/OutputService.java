@@ -9,12 +9,14 @@ public class OutputService {
 
     private HelloWorldService helloWorldService;
 
-    public void setHelloWorldService(HelloWorldService helloWorldService) {
-        this.helloWorldService = helloWorldService;
+    public void setHelloWorldService(HelloWorldServiceImpl helloWorldServiceImpl) {
+        this.helloWorldService = helloWorldServiceImpl;
     }
 
     public void output(String text) {
-        System.err.println(helloWorldService != null);
+        if (helloWorldService == null) {
+            throw new IllegalArgumentException("helloWorldService is null");
+        }
         System.out.println(text);
     }
 }

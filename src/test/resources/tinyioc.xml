@@ -7,7 +7,7 @@
         <property name="helloWorldService" ref="hey"></property>
     </bean>
 
-    <bean name="hey" class="org.su.HelloWorldService">
+    <bean name="hey" class="org.su.HelloWorldServiceImpl">
         <property name="text" value="Hello World!"></property>
         <property name="outputService" ref="outputService"></property>
     </bean>

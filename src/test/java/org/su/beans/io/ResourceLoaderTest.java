@@ -17,8 +17,11 @@ public class ResourceLoaderTest {
     @Test
     public void test() throws IOException {
         ResourceLoader resourceLoader = new ResourceLoader();
-        Resource resource = resourceLoader.getResource("tinyioc.xml");
+        String location = "tinyioc.xml";
+        Resource resource = resourceLoader.getResource(location);
         InputStream inputStream = resource.getInputStream();
-        System.err.println(inputStream != null);
+        if (inputStream == null) {
+            throw new RuntimeException("can not load resource from [ " + location + " ]");
+        }
     }
 }

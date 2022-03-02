@@ -1,7 +1,7 @@
 package org.su.context;
 
 import org.junit.Test;
-import org.su.HelloWorldService;
+import org.su.HelloWorldServiceImpl;
 import org.su.tinyioc.context.ApplicationContext;
 import org.su.tinyioc.context.ClassPathXmlApplicationContext;
 
@@ -15,7 +15,7 @@ public class ApplicationContextTest {
     @Test
     public void test() throws Exception {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("tinyioc.xml");
-        HelloWorldService helloWorldService = (HelloWorldService) applicationContext.getBean("hey");
-        helloWorldService.helloWorld();
+        HelloWorldServiceImpl helloWorldServiceImpl = (HelloWorldServiceImpl) applicationContext.getBean("hey");
+        helloWorldServiceImpl.helloWorld();
     }
 }

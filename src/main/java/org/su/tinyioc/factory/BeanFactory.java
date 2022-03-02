@@ -14,7 +14,7 @@ public interface BeanFactory {
      * @param name beanName
      * @return bean对象
      */
-    Object getBean(String name);
+    Object getBean(String name) throws Exception;
 
     /**
      * 将bean注册到bean工厂中

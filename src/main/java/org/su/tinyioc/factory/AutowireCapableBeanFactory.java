@@ -1,6 +1,7 @@
 package org.su.tinyioc.factory;
 
 import org.su.tinyioc.BeanDefinition;
+import org.su.tinyioc.BeanReference;
 import org.su.tinyioc.PropertyValue;
 
 import java.lang.reflect.Field;
@@ -26,6 +27,7 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
         }
         // 创建bean对象
         Object bean = createBeanInstance(beanDefinition);
+        beanDefinition.setBean(bean);
         // 属性注入
         applyPropertyValues(bean, beanDefinition);
         return bean;
@@ -53,7 +55,12 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
             Field field = bean.getClass().getDeclaredField(propertyValue.getName());
             field.setAccessible(true);
-            field.set(bean, propertyValue.getValue());
+            Object value = propertyValue.getValue();
+            if (value instanceof BeanReference) {
+                BeanReference beanReference = (BeanReference) value;
+                value = getBean(beanReference.getName());
+            }
+            field.set(bean, value);
         }
     }
 }

@@ -2,6 +2,8 @@ package org.su.tinyioc.factory;
 
 import org.su.tinyioc.BeanDefinition;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -14,7 +16,12 @@ public abstract class AbstractBeanFactory implements BeanFactory {
     /**
      * 存放bean的map，key是bean的name，val是对应的beanDefinition实体
      */
-    private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
+    private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
+
+    /**
+     * 存放非懒加载的bean的name
+     */
+    private final List<String> beanDefinitionNames = new ArrayList<>();
 
     /**
      * 根据bean的name获取对应的bean对象
@@ -23,9 +30,16 @@ public abstract class AbstractBeanFactory implements BeanFactory {
      * @return bean对象
      */
     @Override
-    public Object getBean(String name) {
+    public Object getBean(String name) throws Exception {
         BeanDefinition definition = beanDefinitionMap.get(name);
-        return definition == null ? null : definition.getBean();
+        if (definition == null) {
+            throw new IllegalArgumentException("no bean named " + name + " is defined");
+        }
+        Object bean = definition.getBean();
+        if (bean == null) {
+            bean = doCreateBean(definition);
+        }
+        return bean;
     }
 
     /**
@@ -37,9 +51,20 @@ public abstract class AbstractBeanFactory implements BeanFactory {
      */
     @Override
     public void registerBeanDefinition(String name, BeanDefinition beanDefinition) throws Exception {
-        Object bean = doCreateBean(beanDefinition);
-        beanDefinition.setBean(bean);
         beanDefinitionMap.put(name, beanDefinition);
+        // 这边是做测试，所以全部都放到非懒加载的集合中，在Test类中做区别测试
+        beanDefinitionNames.add(name);
+    }
+
+    /**
+     * 初始化非懒加载的bean
+     *
+     * @throws Exception 异常
+     */
+    public void preInstantiateSingletons() throws Exception {
+        for (String name : this.beanDefinitionNames) {
+            getBean(name);
+        }
     }
 
     /**

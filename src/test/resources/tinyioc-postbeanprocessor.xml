@@ -4,12 +4,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
     <bean id="outputService" class="org.su.OutputServiceImpl">
-        <property name="helloWorldService" ref="hey"></property>
     </bean>
 
-    <bean id="hey" class="org.su.HelloWorldServiceImpl">
+    <bean id="helloWorldService" class="org.su.HelloWorldServiceImpl">
         <property name="text" value="Hello World!"></property>
         <property name="outputService" ref="outputService"></property>
+    </bean>
+
+    <bean id="beanInitializeLogger" class="org.su.BeanInitializeLogger">
     </bean>
 
 </beans>

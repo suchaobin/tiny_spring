@@ -1,10 +1,12 @@
 package org.su.tinyioc.beans.factory;
 
 import org.su.tinyioc.BeanReference;
+import org.su.tinyioc.aop.BeanFactoryAware;
 import org.su.tinyioc.beans.BeanDefinition;
 import org.su.tinyioc.beans.PropertyValue;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author suchaobin
@@ -12,37 +14,6 @@ import java.lang.reflect.Field;
  * @date 2022/2/28 5:23 PM
  **/
 public class AutowireCapableBeanFactory extends AbstractBeanFactory {
-    /**
-     * 根据beanDefinition创建bean对象
-     *
-     * @param beanDefinition beanDefinition实体
-     * @return bean对象
-     * @throws Exception 异常
-     */
-    @Override
-    Object doCreateBean(BeanDefinition beanDefinition) throws Exception {
-        Class<?> beanClass = beanDefinition.getBeanClass();
-        if (beanClass == null) {
-            throw new RuntimeException("beanClass can not be null");
-        }
-        // 创建bean对象
-        Object bean = createBeanInstance(beanDefinition);
-        beanDefinition.setBean(bean);
-        // 属性注入
-        applyPropertyValues(bean, beanDefinition);
-        return bean;
-    }
-
-    /**
-     * 生成bean实例对象，此时的bean对象的属性还没有注入值
-     *
-     * @param beanDefinition bean定义对象
-     * @return 生成的bean实例对象，此时的bean对象的属性还没有注入值
-     * @throws Exception 异常
-     */
-    private Object createBeanInstance(BeanDefinition beanDefinition) throws Exception {
-        return beanDefinition.getBeanClass().getDeclaredConstructor().newInstance();
-    }
 
     /**
      * 给bean提供属性注入
@@ -51,16 +22,30 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
      * @param beanDefinition bean定义对象
      * @throws Exception 异常
      */
-    private void applyPropertyValues(Object bean, BeanDefinition beanDefinition) throws Exception {
+    @Override
+    protected void applyPropertyValues(Object bean, BeanDefinition beanDefinition) throws Exception {
+        if (bean instanceof BeanFactoryAware) {
+            ((BeanFactoryAware) bean).setBeanFactory(this);
+        }
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
-            Field field = bean.getClass().getDeclaredField(propertyValue.getName());
-            field.setAccessible(true);
             Object value = propertyValue.getValue();
             if (value instanceof BeanReference) {
                 BeanReference beanReference = (BeanReference) value;
                 value = getBean(beanReference.getName());
             }
-            field.set(bean, value);
+            try {
+                // 调用set方法
+                Method declaredMethod = bean.getClass().getDeclaredMethod(
+                        "set" + propertyValue.getName().substring(0, 1).toUpperCase()
+                                + propertyValue.getName().substring(1), value.getClass());
+                declaredMethod.setAccessible(true);
+                declaredMethod.invoke(bean, value);
+            } catch (NoSuchMethodException e) {
+                // 如果没有set方法就直接字段反射给字段赋值
+                Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
+                declaredField.setAccessible(true);
+                declaredField.set(bean, value);
+            }
         }
     }
 }

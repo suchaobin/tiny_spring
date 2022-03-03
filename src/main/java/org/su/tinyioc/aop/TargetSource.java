@@ -9,22 +9,22 @@ public class TargetSource {
     /**
      * 被代理对象的Class
      */
-    private Class<?> targetClass;
+    private Class<?>[] targetClass;
     /**
      * 被代理的对象
      */
     private Object target;
 
-    public TargetSource(Object target, Class<?> targetClass) {
+    public TargetSource(Object target, Class<?>... targetClass) {
         this.target = target;
         this.targetClass = targetClass;
     }
 
-    public Class<?> getTargetClass() {
+    public Class<?>[] getTargetClass() {
         return targetClass;
     }
 
-    public void setTargetClass(Class<?> targetClass) {
+    public void setTargetClass(Class<?>... targetClass) {
         this.targetClass = targetClass;
     }
 

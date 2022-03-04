@@ -42,4 +42,8 @@ public class AdvisedSupport {
     public void setMethodMatcher(MethodMatcher methodMatcher) {
         this.methodMatcher = methodMatcher;
     }
+
+    public MethodMatcher getMethodMatcher() {
+        return methodMatcher;
+    }
 }

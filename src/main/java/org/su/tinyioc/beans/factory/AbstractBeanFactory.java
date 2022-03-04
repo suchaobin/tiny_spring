@@ -42,6 +42,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         if (bean == null) {
             bean = doCreateBean(definition);
             bean = initializeBean(bean, name);
+            definition.setBean(bean);
         }
         return bean;
     }

@@ -3,13 +3,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="outputService" class="org.su.OutputServiceImpl">
-        <property name="helloWorldService" ref="hey"></property>
-    </bean>
+    <bean id="outputService" class="org.su.OutputServiceImpl"></bean>
 
     <bean id="hey" class="org.su.HelloWorldServiceImpl">
         <property name="text" value="Hello World!"></property>
         <property name="outputService" ref="outputService"></property>
     </bean>
 
+    <bean id="autoProxyCreator" class="org.su.tinyioc.aop.AspectJAwareAdvisorAutoProxyCreator"></bean>
+
+    <bean id="testInterceptor" class="org.su.aop.TestInterceptor"></bean>
+
+    <bean id="aspectjAspect" class="org.su.tinyioc.aop.AspectJExpressionPointcutAdvisor">
+        <property name="advice" ref="testInterceptor"></property>
+        <property name="expression" value="execution(* org.su.*.*(..))"></property>
+    </bean>
 </beans>

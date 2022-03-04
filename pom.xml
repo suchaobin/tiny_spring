@@ -36,6 +36,13 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.8</version>
         </dependency>
+
+        <!--Cglib-->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>3.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>

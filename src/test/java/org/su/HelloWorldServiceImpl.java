@@ -9,7 +9,7 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 
     private String text;
 
-    private OutputServiceImpl outputService;
+    private OutputService outputService;
 
     @Override
     public void helloWorld() {
@@ -20,7 +20,7 @@ public class HelloWorldServiceImpl implements HelloWorldService {
         this.text = text;
     }
 
-    public void setOutputService(OutputServiceImpl outputService) {
+    public void setOutputService(OutputService outputService) {
         this.outputService = outputService;
     }
 }

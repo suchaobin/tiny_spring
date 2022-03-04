@@ -39,18 +39,16 @@ public class AspectJAwareAdvisorAutoProxyCreator implements BeanPostProcessor, B
         for (AspectJExpressionPointcutAdvisor advisor : beans) {
             // 当前这个类能否通过AOP表达式
             if (advisor.getPointcut().getClassFilter().matches(bean.getClass())) {
-                AdvisedSupport advisedSupport = new AdvisedSupport();
-                // 设置方法拦截器
-                advisedSupport.setMethodInterceptor((MethodInterceptor) advisor.getAdvice());
-                // 设置方法匹配器
-                advisedSupport.setMethodMatcher(advisor.getPointcut().getMethodMatcher());
-                // 注意：这边要用类的对应接口，参考HelloWorldService和HelloWolrdServiceImpl
-                TargetSource targetSource = new TargetSource(bean, bean.getClass().getInterfaces());
+                ProxyFactory advisedSupport = new ProxyFactory();
+                // 设置代理对象
+                TargetSource targetSource = new TargetSource(bean, bean.getClass(), bean.getClass().getInterfaces());
                 advisedSupport.setTargetSource(targetSource);
-                // jdk动态代理
-                JdkDynamicAopProxy jdkDynamicAopProxy = new JdkDynamicAopProxy(advisedSupport);
+                // 设置拦截器
+                advisedSupport.setMethodInterceptor((MethodInterceptor) advisor.getAdvice());
+                // 设置匹配器
+                advisedSupport.setMethodMatcher(advisor.getPointcut().getMethodMatcher());
                 // 创建代理对象
-                return jdkDynamicAopProxy.getProxy();
+                return advisedSupport.getProxy();
             }
         }
         return bean;

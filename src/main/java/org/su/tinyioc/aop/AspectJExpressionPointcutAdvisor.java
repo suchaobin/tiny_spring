@@ -1,6 +1,7 @@
 package org.su.tinyioc.aop;
 
-import org.aspectj.weaver.Advice;
+
+import org.aopalliance.aop.Advice;
 
 /**
  * @author suchaobin
@@ -15,6 +16,10 @@ public class AspectJExpressionPointcutAdvisor implements PointcutAdvisor {
 
     public void setPointcut(AspectJExpressionPointcut pointcut) {
         this.pointcut = pointcut;
+    }
+
+    public void setExpression(String expression) {
+        this.pointcut.setExpression(expression);
     }
 
     public void setAdvice(Advice advice) {

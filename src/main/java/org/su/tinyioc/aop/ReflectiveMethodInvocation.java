@@ -14,17 +14,17 @@ public class ReflectiveMethodInvocation implements MethodInvocation {
     /**
      * 调用方法的对象
      */
-    private Object target;
+    protected Object target;
 
     /**
      * 调用的方法
      */
-    private Method method;
+    protected Method method;
 
     /**
      * 参数
      */
-    private Object[] args;
+    protected Object[] args;
 
     public ReflectiveMethodInvocation(Object target, Method method, Object[] args) {
         this.target = target;

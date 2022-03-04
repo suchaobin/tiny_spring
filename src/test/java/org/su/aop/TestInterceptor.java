@@ -12,11 +12,11 @@ public class TestInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        long start = System.nanoTime();
-        System.err.println("hey, the interceptor for test is running");
+        long time = System.nanoTime();
+        System.out.println("Invocation of Method " + invocation.getMethod().getName() + " start!");
         Object proceed = invocation.proceed();
-        long end = System.nanoTime();
-        System.err.println("the interceptor is stop, cost " + (end - start) + " ns");
+        System.out.println("Invocation of Method " + invocation.getMethod().getName() + " end! takes " + (System.nanoTime() - time)
+                + " nanoseconds.");
         return proceed;
     }
 }

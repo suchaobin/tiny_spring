@@ -9,23 +9,34 @@ public class TargetSource {
     /**
      * 被代理对象的Class
      */
-    private Class<?>[] targetClass;
+    private Class<?> targetClass;
     /**
      * 被代理的对象
      */
     private Object target;
 
-    public TargetSource(Object target, Class<?>... targetClass) {
+    private Class<?>[] interfaces;
+
+    public TargetSource(Object target, Class<?> targetClass, Class<?>... interfaces) {
         this.target = target;
         this.targetClass = targetClass;
+        this.interfaces = interfaces;
     }
 
-    public Class<?>[] getTargetClass() {
+    public Class<?> getTargetClass() {
         return targetClass;
     }
 
-    public void setTargetClass(Class<?>... targetClass) {
+    public void setTargetClass(Class<?> targetClass) {
         this.targetClass = targetClass;
+    }
+
+    public Class<?>[] getInterfaces() {
+        return interfaces;
+    }
+
+    public void setInterfaces(Class<?>... interfaces) {
+        this.interfaces = interfaces;
     }
 
     public Object getTarget() {

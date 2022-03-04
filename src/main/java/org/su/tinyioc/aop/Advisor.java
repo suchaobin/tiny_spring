@@ -1,6 +1,7 @@
 package org.su.tinyioc.aop;
 
-import org.aspectj.weaver.Advice;
+
+import org.aopalliance.aop.Advice;
 
 /**
  * @author suchaobin
